@@ -1,0 +1,32 @@
+## Frame IDs (CRITICAL FOR TF CONSISTENCY)
+#base_frame_id: "base_link"    
+#odom_frame_id: "odom"              
+#global_frame_id: "map"            
+## Planner Timings (reduce sensitivity to odometry jitter)
+#controller_frequency: 5.0          
+#planner_frequency: 1.0             
+#planner_patience: 5.0              
+#controller_patience: 3.0          
+## Recovery Behaviors (adjust for stability)
+#recovery_behavior_enabled: true 
+#recovery_behaviors:
+ # - {name: 'conservative_reset', type: 'clear_costmap_recovery/ClearCostmapRecovery'}
+ # - {name: 'rotate_recovery', type: 'rotate_recovery/RotateRecovery'}
+ # - {name: 'aggressive_reset', type: 'clear_costmap_recovery/ClearCostmapRecovery'}
+## Oscillation Prevention (reduce false triggers from jitter)
+#oscillation_timeout: 10.0          
+#oscillation_distance: 0.5         
+## Costmap Clearing
+#conservative_reset_dist: 3.0      
+#shutdown_costmaps: false      
+base_global_planner: "navfn/NavfnROS" 
+base_local_planner: "base_local_planner/TrajectoryPlannerROS" 
+planner_frequency: 1.0 
+controller_frequency: 5.0 
+planner_patience: 5.0 
+controller_patience: 5.0 
+oscillation_timeout: 10.0 
+oscillation_distance: 0.2 
+recovery_behavior_enabled: true 
+clearing_rotation_allowed: true 
+shutdown_costmaps: false

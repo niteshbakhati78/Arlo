@@ -1,0 +1,29 @@
+TrajectoryPlannerROS:
+  # Frame and Robot Type
+  base_frame_id: "base_link"
+  holonomic_robot: false 
+  # Velocity Limits (Tuned for Stability)
+  max_vel_x: 0.3 
+  min_vel_x: 0.0 
+  max_vel_theta: 1.0 
+  acc_lim_x: 0.5 
+  acc_lim_theta: 1.0 
+  # Goal Tolerance
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: 0.1
+  latch_xy_goal_tolerance: true 
+  # Trajectory Simulation
+  sim_time: 1.5 
+  sim_granularity: 0.05 
+  vx_samples: 20 
+  vtheta_samples: 20 
+  # Cost Function Weights
+  path_distance_bias: 0.6 
+  goal_distance_bias: 1.0 
+  occdist_scale: 0.1 
+  # Oscillation Prevention
+  oscillation_reset_dist: 0.1 
+  oscillation_reset_angle: 0.2 
+  # Debugging (Optional)
+  publish_cost_grid_pc: false 
+  publish_trajectory_pc: false    
