@@ -124,6 +124,50 @@ source install/setup.bash
 
 ---
 
+## Running the Robot
+
+Open three terminals. **Terminal 1 must run as root** because PYNQ requires direct FPGA hardware access.
+
+### Terminal 1 — Launch the full system (on the KV260)
+
+```bash
+sudo su
+source /etc/profile.d/pynq_venv.sh
+source /opt/ros/humble/setup.bash
+export ROS_DOMAIN_ID=0
+export ROS_LOCALHOST_ONLY=0
+cd arlobot_ws/
+colcon build
+source install/setup.bash
+ros2 launch arlobot navigation_launch.py
+```
+
+This starts the motor controller, encoder logger, odometry node, RPLIDAR driver, and the Nav2 navigation stack.
+
+### Terminal 2 — Keyboard teleoperation
+
+```bash
+source /opt/ros/humble/setup.bash
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+```
+
+Use keyboard keys to drive the robot and explore the environment while SLAM builds the map.
+
+### Terminal 3 — RViz2 visualization (on a remote machine or the same host)
+
+```bash
+source /opt/ros/humble/setup.bash
+export ROS_DOMAIN_ID=0
+export ROS_LOCALHOST_ONLY=0
+rviz2
+```
+
+In RViz2, add the following displays: **Map**, **LaserScan** (`/scan`), **Odometry** (`/odom`), and **RobotModel**. Use **2D Pose Estimate** to initialize AMCL localization and **Nav2 Goal** to send autonomous navigation targets.
+
+> **Note:** `ROS_DOMAIN_ID=0` and `ROS_LOCALHOST_ONLY=0` must match across all terminals (and machines) for ROS 2 topics to be visible over the network.
+
+---
+
 ## Usage
 
 ### 1. SLAM — Build a Map
